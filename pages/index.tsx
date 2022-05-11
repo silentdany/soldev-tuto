@@ -1,13 +1,19 @@
-import type { NextPage } from "next";
 import { useState } from "react";
-import styles from "../styles/Home.module.css";
-import AddressForm from "../components/AddressForm";
-import * as Web3 from "@solana/web3.js";
-import { PingButton } from "../components/PingButton";
-import { AppBar } from "../components/NavBar";
-import WalletContextProvider from "../components/WalletContextProvider";
+import type { NextPage } from "next";
 import Head from "next/head";
+import * as Web3 from "@solana/web3.js";
+import { Center, Box, Heading } from "@chakra-ui/react";
+
+import { AppBar } from "../components/NavBar";
+import AddressForm from "../components/AddressForm";
+import { PingButton } from "../components/PingButton";
 import { SendSolForm } from "../components/SendSolForm";
+
+import styles from "../styles/Home.module.css";
+import { MovieForm } from "../components/MovieList/Form";
+import { MovieList } from "../components/MovieList/MovieList";
+import { StudentForm } from "../components/StudentIntroList/Form";
+import { StudentIntroList } from "../components/StudentIntroList/StudentIntrolList";
 
 const Home: NextPage = () => {
   const [balance, setBalance] = useState(0);
@@ -43,21 +49,45 @@ const Home: NextPage = () => {
         <title>Wallet-Adapter Example</title>
         <meta name="description" content="Wallet-Adapter Example" />
       </Head>
-      <WalletContextProvider>
-        <AppBar />
-        <div className={styles.AppBody}>
-          <p>Start Your Solana Journey</p>
-          <Divider />
-          <AddressForm handler={addressSubmittedHandler} />
-          <p>{`Address: ${address}`}</p>
-          <p>{`Balance: ${balance} SOL`}</p>
-          <p>{`Executable: ${executable ? "yep" : "nope"}`}</p>
-          <Divider />
-          <PingButton />
-          <Divider />
-          <SendSolForm />
-        </div>
-      </WalletContextProvider>
+      <AppBar />
+      <div className={styles.AppBody}>
+        <p>Start Your Solana Journey</p>
+        <Divider />
+        <AddressForm handler={addressSubmittedHandler} />
+        <p>{`Address: ${address}`}</p>
+        <p>{`Balance: ${balance} SOL`}</p>
+        <p>{`Executable: ${executable ? "yep" : "nope"}`}</p>
+        <Divider />
+        <PingButton />
+        <Divider />
+        <SendSolForm />
+        <Divider />
+        <Center>
+          <Box>
+            <Heading as="h1" size="l" color="white" ml={4} mt={8}>
+              Add a review
+            </Heading>
+            <MovieForm />
+            <Heading as="h1" size="l" color="white" ml={4} mt={8}>
+              Existing Reviews
+            </Heading>
+            <MovieList />
+          </Box>
+        </Center>
+        <Divider />
+        <Center>
+          <Box>
+            <Heading as="h1" size="l" color="white" ml={4} mt={8}>
+              Introduce Yourself!
+            </Heading>
+            <StudentForm />
+            <Heading as="h1" size="l" color="white" ml={4} mt={8}>
+              Meet the Students!
+            </Heading>
+            <StudentIntroList />
+          </Box>
+        </Center>
+      </div>
     </div>
   );
 };
